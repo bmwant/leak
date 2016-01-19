@@ -1,9 +1,16 @@
 import time
 import argparse
 import datetime
+import logging
+import functools
 
 import requests
+
 from termcolor import colored
+
+
+logging.basicConfig()
+logger = logging.getLogger(__package__)
 
 
 DATE_FORMAT = '%d/%m/%Y %H:%M'
@@ -21,6 +28,7 @@ def get_latest_time_for_release(release):
         if upload_time > latest_time:
             latest_time = upload_time
     return latest_time
+
 
 def get_max_downloads_for_release(release):
     max_downloads = 0
@@ -69,7 +77,6 @@ def main(package_name=''):
         return
 
     data = resp.json()
-
     releases = data['releases']
     show_package_info(data)
     most_popular_count = 0
@@ -77,7 +84,28 @@ def main(package_name=''):
     most_recent_release = None
     most_recent_date = EPOCH_BEGIN
     # todo (misha): add correct comparator
-    versions = sorted(releases.keys(), reverse=True)
+    def versions_split(version_str, type_applyer=int):
+        dots_count = version_str.count('.')
+        if dots_count == 0:
+            major, minor, patch = version_str, 0, 0
+        elif dots_count == 1:
+            major, minor = version_str.split('.')
+            patch = 0
+        elif dots_count == 2:
+            major, minor, patch = version_str.split('.')
+        else:
+            logger.debug('Incorrect version "%s". Move to bottom when sorting' % version_str)
+            major, minor, patch = 0, 0, 0
+
+        return map(type_applyer, (major, minor, patch))
+
+    try:
+        versions = sorted(releases.keys(), reverse=True, key=versions_split)
+    except ValueError as e:
+        logger.debug('Trying to sort versions as strings')
+        splitter = functools.partial(versions_split, type_applyer=str)
+        versions = sorted(releases.keys(), reverse=True, key=splitter)
+
     for release_num, release_data in releases.items():
         downloads_count = get_max_downloads_for_release(release_data)
         if downloads_count > most_popular_count:
