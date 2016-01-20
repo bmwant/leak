@@ -24,7 +24,7 @@ class PyTest(TestCommand):
 
 
 args = dict(
-    name='pawk',
+    name='leak',
     version='1.0',
     description=('Show available releases for package'),
     long_description=read('README.md'),
@@ -52,10 +52,10 @@ args = dict(
     author_email='bmwant@gmail.com',
     url='http://bmwlog.pp.ua',
     license='MIT License',
-    packages=['pawk'],
+    packages=['leak'],
     install_requires=install_requires,
     tests_require=tests_require,
-    scripts=['scripts/pawk'],
+    scripts=['scripts/leak'],
     include_package_data=True,
     cmdclass=dict(test=PyTest))
 
