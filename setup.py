@@ -5,7 +5,7 @@ from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 
-install_requires = ['requests']
+install_requires = ['requests', 'termcolor']
 tests_require = install_requires + ['pytest']
 
 
@@ -27,7 +27,7 @@ args = dict(
     name='leak',
     version='1.0',
     description=('Show available releases for package'),
-    long_description=read('README.md'),
+    long_description=read('README.rst'),
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
