@@ -1,7 +1,4 @@
-import time
-import argparse
 import datetime
-import logging
 import functools
 
 import requests
@@ -10,16 +7,9 @@ from distutils.version import StrictVersion
 
 from termcolor import colored
 
-from .version_parser import versions_split
-
-
-logging.basicConfig()
-logger = logging.getLogger(__package__)
-
-
-DATE_FORMAT = '%d/%m/%Y %H:%M'
-EPOCH_BEGIN = datetime.datetime.fromtimestamp(0)
-FIRST_COLUMN_LENGTH = 20
+from leak import logger
+from leak import EPOCH_BEGIN, FIRST_COLUMN_LENGTH, DATE_FORMAT
+from leak.version_parser import versions_split
 
 
 def get_latest_time_for_release(release):
@@ -82,6 +72,10 @@ def get_package_data(package_name):
     return data
 
 
+def parse_packages_from_html(html_content):
+    return ''
+
+
 def search_for_package(package_name):
     url_template = 'https://pypi.python.org/pypi?:action=search&term={package_name}'
     url = url_template.format(package_name=package_name)
@@ -100,7 +94,7 @@ def main(package_name=''):
         return
 
     releases = package_data['releases']
-    show_package_info(data)
+    show_package_info(package_data)
     most_popular_count = 0
     most_popular_release = None
     most_recent_release = None
@@ -137,15 +131,3 @@ def main(package_name=''):
         else:
             text = '(%s)' % version
             print(text)
-
-
-def cli():
-    parser = argparse.ArgumentParser(description='Show all releases for package and some info about it')
-    parser.add_argument('package_name',
-                        help='You should provide package name')
-    args = parser.parse_args()
-    main(package_name=args.package_name)
-
-
-if __name__ == '__main__':
-    cli()

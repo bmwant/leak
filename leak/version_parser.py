@@ -1,3 +1,6 @@
+from leak import logger
+
+
 def versions_split(version_str, type_applyer=int):
     dots_count = version_str.count('.')
     if dots_count == 0:

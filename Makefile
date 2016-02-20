@@ -1,4 +1,5 @@
-publish:
+publish-new:
+	python setup.py sdist upload
 	@echo "Published"
 
 test:
