@@ -71,23 +71,40 @@ def show_package_info(data):
     print('='*80)
 
 
-def main(package_name=''):
+def get_package_data(package_name):
     url_template = 'http://pypi.python.org/pypi/{package_name}/json'
     url = url_template.format(package_name=package_name)
     resp = requests.get(url)
     if resp.status_code != 200:
+        raise ValueError('No such package')
+
+    data = resp.json()
+    return data
+
+
+def search_for_package(package_name):
+    url_template = 'https://pypi.python.org/pypi?:action=search&term={package_name}'
+    url = url_template.format(package_name=package_name)
+    resp = requests.get(url)
+    if resp.status_code != 200:
+        return []
+    return parse_packages_from_html(resp.text)
+
+
+def main(package_name=''):
+    try:
+        package_data = get_package_data(package_name)
+    except ValueError as e:
         error_text = colored('No such package "%s"' % package_name, 'red')
         print(error_text)
         return
 
-    data = resp.json()
-    releases = data['releases']
+    releases = package_data['releases']
     show_package_info(data)
     most_popular_count = 0
     most_popular_release = None
     most_recent_release = None
     most_recent_date = EPOCH_BEGIN
-
 
     try:
         versions = sorted(releases.keys(), reverse=True, key=StrictVersion)
