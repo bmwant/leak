@@ -5,7 +5,7 @@ from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 
-install_requires = ['requests', 'termcolor']
+install_requires = ['requests', 'termcolor','packaging']
 tests_require = install_requires + ['pytest']
 
 
