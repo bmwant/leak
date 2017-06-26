@@ -7,8 +7,9 @@ from setuptools.command.test import test as TestCommand
 
 install_requires = ['requests', 'termcolor', 'packaging']
 tests_require = install_requires + [
-    'pytest',
+    'pytest==3.1.2',
     'tox==2.7.0',
+    'mock==2.0.0',
 ]
 
 

@@ -77,7 +77,8 @@ def parse_packages_from_html(html_content):
 
 
 def search_for_package(package_name):
-    url_template = 'https://pypi.python.org/pypi?:action=search&term={package_name}'
+    url_template = ('https://pypi.python.org/'
+                    'pypi?:action=search&term={package_name}')
     url = url_template.format(package_name=package_name)
     resp = requests.get(url)
     if resp.status_code != 200:
