@@ -19,7 +19,7 @@ Just run
     leak <package_name>
 
 and you will see all releases and some
-useful statistic about package provided. It will show most recent version,
+useful statistic about package specified. It will show most recent version,
 most popular (with highest number of downloads) and some additional
 information.
 
@@ -36,13 +36,48 @@ or directly from github
 
 .. code:: bash
 
-    git clone git://github.com/bmwant21/leak.git
+    git clone git://github.com/bmwant/leak.git
     python setup.py install
 
 Testing
 -------
-Oh, doh
+
+Just invoke one of the possible commands, all of them use `pytest`.
+
+.. code:: bash
+
+    python setup.py test
+
+or
+
+.. code:: bash
+
+    pytest
+
+or
+
+.. code:: bash
+
+    make test
+
+or to test on all possible environments
+
+.. code:: bash
+
+    tox
+
+Contribution
+------------
+
+Create virtual environment and install all the necessary dependencies:
+
+.. code:: bash
+
+    pip install -e .[dev]
+
+Then launch tests as described above and create a PR.
 
 Licence
 -------
+
 Distributed under `MIT License <https://tldrlegal.com/license/mit-license>`_
