@@ -70,7 +70,8 @@ args = dict(
     install_requires=install_requires,
     tests_require=tests_require,
     extras_require={
-        'dev': tests_require + release_require
+        'test': tests_require,
+        'dev': tests_require + release_require,
     },
     scripts=['scripts/leak'],
     include_package_data=True,
