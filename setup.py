@@ -64,7 +64,7 @@ args = dict(
         ],
     author='Misha Behersky',
     author_email='bmwant@gmail.com',
-    url='http://bmwlog.pp.ua',
+    url='http://bmwlog.pp.ua/post/117',
     license='MIT License',
     packages=['leak'],
     install_requires=install_requires,
