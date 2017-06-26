@@ -18,6 +18,6 @@ clean:
 	rm -rf dist/
 
 release: clean
-    python setup.py sdist
+	python setup.py sdist
 	python setup.py bdist_wheel
 	twine upload -r pypi dist/*

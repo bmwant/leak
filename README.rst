@@ -7,7 +7,12 @@ leak
 .. image:: https://img.shields.io/pypi/dm/leak.svg
     :target: https://pypi.python.org/pypi/leak
 
+.. image:: https://travis-ci.org/bmwant/leak.svg?branch=master
+    :target: https://travis-ci.org/bmwant/leak
+
 Show info about releases of packages on PyPi.
+
+GitHub page `here <https://github.com/bmwant/leak>`_.
 
 If you need to install specific version of package it is useful to know
 all available versions to have a choice.
