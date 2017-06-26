@@ -1,6 +1,5 @@
 import os
-import re
-import sys
+
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
@@ -37,7 +36,7 @@ class PyTest(TestCommand):
 
 args = dict(
     name='leak',
-    version='1.0.3',  # todo (misha): add reading version from init file
+    version='1.0.3',
     description='Show available releases for package',
     long_description=read('README.rst'),
     classifiers=[
