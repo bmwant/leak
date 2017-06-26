@@ -3,7 +3,7 @@ import functools
 
 import requests
 
-from distutils.version import StrictVersion
+from packaging.version import parse as parse_version
 
 from termcolor import colored
 
@@ -77,7 +77,8 @@ def parse_packages_from_html(html_content):
 
 
 def search_for_package(package_name):
-    url_template = 'https://pypi.python.org/pypi?:action=search&term={package_name}'
+    url_template = ('https://pypi.python.org/'
+                    'pypi?:action=search&term={package_name}')
     url = url_template.format(package_name=package_name)
     resp = requests.get(url)
     if resp.status_code != 200:
@@ -101,7 +102,7 @@ def main(package_name=''):
     most_recent_date = EPOCH_BEGIN
 
     try:
-        versions = sorted(releases.keys(), reverse=True, key=StrictVersion)
+        versions = sorted(releases.keys(), reverse=True, key=parse_version)
     except ValueError as e:
         logger.debug('Trying to sort versions as strings')
         splitter = functools.partial(versions_split, type_applyer=str)

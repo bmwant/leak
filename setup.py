@@ -5,8 +5,12 @@ from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 
-install_requires = ['requests', 'termcolor']
-tests_require = install_requires + ['pytest']
+install_requires = ['requests', 'termcolor', 'packaging']
+tests_require = install_requires + [
+    'pytest==3.1.2',
+    'tox==2.7.0',
+    'mock==2.0.0',
+]
 
 
 def read(f):
@@ -26,17 +30,20 @@ class PyTest(TestCommand):
 args = dict(
     name='leak',
     version='1.0.3',  # todo (misha): add reading version from init file
-    description=('Show available releases for package'),
+    description='Show available releases for package',
     long_description=read('README.rst'),
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Indexing/Search',
