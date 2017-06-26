@@ -5,11 +5,18 @@ from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 
-install_requires = ['requests', 'termcolor', 'packaging']
+install_requires = [
+    'requests',
+    'termcolor',
+    'packaging',
+]
 tests_require = install_requires + [
     'pytest==3.1.2',
     'tox==2.7.0',
     'mock==2.0.0',
+]
+release_require = [
+    'zest.releaser==6.12',
 ]
 
 
@@ -62,8 +69,12 @@ args = dict(
     packages=['leak'],
     install_requires=install_requires,
     tests_require=tests_require,
+    extras_require={
+        'dev': tests_require + release_require
+    },
     scripts=['scripts/leak'],
     include_package_data=True,
-    cmdclass=dict(test=PyTest))
+    cmdclass=dict(test=PyTest)
+)
 
 setup(**args)
