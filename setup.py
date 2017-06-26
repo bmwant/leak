@@ -17,6 +17,7 @@ tests_require = install_requires + [
 ]
 release_require = [
     'zest.releaser==6.12',
+    'twine>=1.9.1,<2.0',
 ]
 
 
