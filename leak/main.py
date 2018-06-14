@@ -62,7 +62,7 @@ def show_package_info(data):
 
 
 def get_package_data(package_name):
-    url_template = 'http://pypi.python.org/pypi/{package_name}/json'
+    url_template = 'https://pypi.org/pypi/{package_name}/json'
     url = url_template.format(package_name=package_name)
     resp = requests.get(url)
     if resp.status_code != 200:
