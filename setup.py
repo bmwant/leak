@@ -37,7 +37,7 @@ class PyTest(TestCommand):
 
 args = dict(
     name='leak',
-    version='1.2.0',
+    version='1.2.1.dev0',
     description='Show available releases for package',
     long_description=read('README.rst'),
     classifiers=[
