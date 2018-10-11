@@ -4,8 +4,8 @@ leak
 .. image:: https://img.shields.io/pypi/v/leak.svg
     :target: https://pypi.python.org/pypi/leak
 
-.. image:: https://img.shields.io/pypi/dm/leak.svg
-    :target: https://pypi.python.org/pypi/leak
+.. image:: https://pepy.tech/badge/leak
+    :target: https://pepy.tech/project/leak
 
 .. image:: https://travis-ci.org/bmwant/leak.svg?branch=master
     :target: https://travis-ci.org/bmwant/leak
@@ -35,14 +35,14 @@ Install using pip
 
 .. code:: bash
 
-    pip install leak
+    $ pip install leak
 
 or directly from github
 
 .. code:: bash
 
-    git clone git://github.com/bmwant/leak.git
-    python setup.py install
+    $ git clone git://github.com/bmwant/leak.git
+    $ python setup.py install
 
 Testing
 -------
@@ -51,25 +51,25 @@ Just invoke one of the possible commands, all of them use `pytest`.
 
 .. code:: bash
 
-    python setup.py test
+    $ python setup.py test
 
 or
 
 .. code:: bash
 
-    pytest
+    $ pytest
 
 or
 
 .. code:: bash
 
-    make test
+    $ make test
 
 or to test on all possible environments
 
 .. code:: bash
 
-    tox
+    $ tox
 
 Contribution
 ------------
@@ -78,7 +78,7 @@ Create virtual environment and install all the necessary dependencies:
 
 .. code:: bash
 
-    pip install -e .[dev]
+    $ pip install -e .[dev]
 
 Then launch tests as described above and create a PR.
 
