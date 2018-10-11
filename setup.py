@@ -20,8 +20,9 @@ release_require = [
 ]
 
 
-def read(f):
-    return open(os.path.join(os.path.dirname(__file__), f)).read().strip()
+def read(filepath):
+    with open(os.path.join(os.path.dirname(__file__), filepath)) as f:
+        return f.read().strip()
 
 
 class PyTest(TestCommand):

@@ -71,6 +71,18 @@ or to test on all possible environments
 
     $ tox
 
+Releasing
+---------
+
+It uses `zestreleaser <https://zestreleaser.readthedocs.io/en/latest/>`_.
+for versions management and `twine <https://twine.readthedocs.io/en/latest/>`_
+for PyPI uploads.
+
+.. code:: bash
+
+    $ fullrelease
+    $ make release
+
 Contribution
 ------------
 
