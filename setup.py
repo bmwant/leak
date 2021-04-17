@@ -20,8 +20,9 @@ release_require = [
 ]
 
 
-def read(f):
-    return open(os.path.join(os.path.dirname(__file__), f)).read().strip()
+def read(filepath):
+    with open(os.path.join(os.path.dirname(__file__), filepath)) as f:
+        return f.read().strip()
 
 
 class PyTest(TestCommand):
@@ -36,7 +37,7 @@ class PyTest(TestCommand):
 
 args = dict(
     name='leak',
-    version='1.1.1.dev0',
+    version='1.2.1.dev0',
     description='Show available releases for package',
     long_description=read('README.rst'),
     classifiers=[
