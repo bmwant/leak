@@ -90,7 +90,7 @@ def main(package_name=""):
     except ValueError as e:
         logger.error(e)
         rprint(f"No such package [bold red]{package_name}[/]")
-        sys.exit(1)
+        return sys.exit(1)
 
     releases = package_data["releases"]
     show_package_info(package_data)
