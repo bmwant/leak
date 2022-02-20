@@ -4,7 +4,10 @@ from leak import main
 
 
 @click.command()
-@click.version_option()
+@click.version_option(
+    prog_name="leak",
+    package_name="leak",
+)
 @click.argument(
     "package_name",
     required=True,
