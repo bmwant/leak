@@ -20,3 +20,7 @@ clean:
 .PHONY: release
 release: clean
 	@echo "Releasing"
+
+.PHONY: lint
+lint:
+	@poetry run flake8 --count .
