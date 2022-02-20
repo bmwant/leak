@@ -1,6 +1,7 @@
 ### 1.4.0
 
 * Migrate to click for the arguments parsing
+* Integrate with GitHub Actions for CI
 
 ### 1.3.0
 
