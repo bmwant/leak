@@ -1,3 +1,13 @@
+### Set up development environment
+
+Clone repository (fork and clone your own repo for contributions) and install project with [Poetry](https://python-poetry.org/docs/)
+
+```bash
+$ git clone git@github.com:bmwant/leak.git
+$ cd leak
+$ poetry install
+```
+
 ### Testing
 
 Unittests are written using [pytest](https://docs.pytest.org/en/latest/).
