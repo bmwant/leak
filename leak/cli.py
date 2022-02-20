@@ -1,15 +1,20 @@
-import argparse
+import click
 
 from leak import main
 
 
-def cli():
-    parser = argparse.ArgumentParser(
-        description="Show all releases for package and some info about it"
-    )
-    parser.add_argument("package_name", help="You should provide package name")
-    args = parser.parse_args()
-    main.main(package_name=args.package_name)
+@click.command()
+@click.version_option()
+@click.argument(
+    "package_name",
+    required=True,
+)
+def cli(package_name):
+    """Shows all releases for a package and some info about it.
+
+    PACKAGE_NAME Name of the package to fetch info about.
+    """
+    main.main(package_name=package_name)
 
 
 if __name__ == "__main__":
