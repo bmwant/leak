@@ -3,6 +3,7 @@
 * Migrate to click for the arguments parsing
 * Integrate with GitHub Actions for CI
 * Move configuration to a separate module
+* Enable internal logging only in debug mode
 
 ## 1.3.0 📦 current package
 

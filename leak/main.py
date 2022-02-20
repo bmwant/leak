@@ -1,3 +1,4 @@
+import sys
 import datetime
 import functools
 from packaging.version import parse as parse_version
@@ -5,8 +6,7 @@ from packaging.version import parse as parse_version
 import requests
 from rich.console import Console
 
-from leak import logger
-from leak import EPOCH_BEGIN, FIRST_COLUMN_LENGTH, DATE_FORMAT
+from leak import config, logger
 from leak.version_parser import versions_split
 
 
@@ -15,7 +15,7 @@ rprint = console.print
 
 
 def get_latest_time_for_release(release):
-    latest_time = EPOCH_BEGIN
+    latest_time = config.EPOCH_BEGIN
     date_format = "%Y-%m-%dT%H:%M:%S"
     for release_record in release:
         upload_time = datetime.datetime.strptime(
@@ -36,7 +36,7 @@ def get_max_downloads_for_release(release):
 
 def show_package_info(data):
     def print_row(caption_text, value):
-        caption = caption_text.ljust(FIRST_COLUMN_LENGTH)
+        caption = caption_text.ljust(config.FIRST_COLUMN_LENGTH)
         print("%s %s" % (caption, value))
 
     info = data["info"]
@@ -89,15 +89,15 @@ def main(package_name=""):
         package_data = get_package_data(package_name)
     except ValueError as e:
         logger.error(e)
-        rprint(f"[red]No such package '{package_name}'[/]")
-        return
+        rprint(f"No such package [bold red]{package_name}[/]")
+        sys.exit(1)
 
     releases = package_data["releases"]
     show_package_info(package_data)
     most_popular_count = 0
     most_popular_release = None
     most_recent_release = None
-    most_recent_date = EPOCH_BEGIN
+    most_recent_date = config.EPOCH_BEGIN
 
     try:
         versions = sorted(releases.keys(), reverse=True, key=parse_version)
@@ -126,7 +126,7 @@ def main(package_name=""):
                 f"[yellow]({version}) Most popular: {most_popular_count} downloads.[/]"
             )
         elif version == most_recent_release:
-            release_date = most_recent_date.strftime(DATE_FORMAT)
+            release_date = most_recent_date.strftime(config.DATE_FORMAT)
             rprint(f"[cyan]({version}) Most recent: {release_date} release date.[/]")
         else:
             rprint(f"({version})")

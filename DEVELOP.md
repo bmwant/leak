@@ -8,6 +8,13 @@ $ cd leak
 $ poetry install
 ```
 
+Set `LEAK_DEBUG` environment variable for the extra internal logging while developing
+
+```bash
+$ export LEAK_DEBUG=1
+$ poetry run leak requests
+```
+
 ### Testing
 
 Unittests are written using [pytest](https://docs.pytest.org/en/latest/).

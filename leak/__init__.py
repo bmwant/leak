@@ -1,11 +1,10 @@
 import logging
-import datetime
+
+from . import config
 
 
-logging.basicConfig()
+logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger(__package__)
 
-
-DATE_FORMAT = "%d/%m/%Y %H:%M"
-EPOCH_BEGIN = datetime.datetime.fromtimestamp(0)
-FIRST_COLUMN_LENGTH = 20
+if config.DEBUG:
+    logger.setLevel(logging.INFO)
