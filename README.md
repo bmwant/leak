@@ -1,20 +1,13 @@
 ## leak
 
-.. image:: https://img.shields.io/pypi/v/leak.svg
-    :target: https://pypi.python.org/pypi/leak
+![PyPI](https://img.shields.io/pypi/v/leak?style=flat-square)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/leak?style=flat-square)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/leak?style=flat-square)
+![PyPI - License](https://img.shields.io/pypi/l/leak?style=flat-square)
 
-.. image:: https://pepy.tech/badge/leak
-    :target: https://pepy.tech/project/leak
+Show info about package releases on PyPi.
 
-.. image:: https://travis-ci.org/bmwant/leak.svg?branch=master
-    :target: https://travis-ci.org/bmwant/leak
-
-Show info about releases of packages on PyPi.
-
-GitHub page `here <https://github.com/bmwant/leak>`_.
-
-If you need to install specific version of package it is useful to know
-all available versions to have a choice.
+If you need to install specific version of package it is useful to know all available versions to have a choice.
 
 Just run
 
@@ -22,8 +15,7 @@ Just run
 $ leak <package_name>
 ```
 
-and you will see all releases and some useful statistic about package specified. It will show most recent version,
-most popular (with highest number of downloads) and some additional information.
+and you will see all releases and some useful statistic about package specified. It will show most recent version, most popular (with highest number of downloads) and some additional information.
 
 ### How to install
 
