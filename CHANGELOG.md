@@ -1,9 +1,10 @@
-### 1.4.0
+### 1.4.0 🚜 ongoing work
 
 * Migrate to click for the arguments parsing
 * Integrate with GitHub Actions for CI
+* Move configuration to a separate module
 
-### 1.3.0
+## 1.3.0 📦 current package
 
 * Use [rich library](https://rich.readthedocs.io/en/latest/) for the colored output
 * Migrate to [Poetry](https://python-poetry.org/) for a package management

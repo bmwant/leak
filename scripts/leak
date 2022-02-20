@@ -1,4 +1,0 @@
-#!/usr/bin/env python
-from leak import cli
-
-cli.cli()
