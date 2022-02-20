@@ -1,8 +1,8 @@
-.PHONY: test clean release
+.PHONY: tests
+tests:
+	@poetry run pytest -sv tests
 
-test:
-	@py.test -sv -rs tests
-
+.PHONY: clean
 clean:
 	rm -rf `find . -name __pycache__`
 	rm -f `find . -type f -name '*.py[co]' `
@@ -17,7 +17,6 @@ clean:
 	rm -rf build/
 	rm -rf dist/
 
+.PHONY: release
 release: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
-	twine upload -r pypi dist/*
+	@echo "Releasing"

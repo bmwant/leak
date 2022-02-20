@@ -1,15 +1,18 @@
 import datetime
 import functools
-
-import requests
-
 from packaging.version import parse as parse_version
 
-from termcolor import colored
+import rich
+import requests
+from rich.console import Console
 
 from leak import logger
 from leak import EPOCH_BEGIN, FIRST_COLUMN_LENGTH, DATE_FORMAT
 from leak.version_parser import versions_split
+
+
+console = Console(highlight=False)
+rprint = console.print
 
 
 def get_latest_time_for_release(release):
@@ -47,14 +50,13 @@ def show_package_info(data):
 
     print('='*80)
 
-    header = colored(name, 'white')
-    print(header)
+    rprint(f"[bold bright_white]{name}[/]")
     print(summary)
 
     print('-'*80)
 
     print_row('Author:', author)
-    print_row('Author mail:', author_email)
+    print_row("Author's email:", author_email)
     print_row('Available versions:', versions_count)
     print_row('Home page:', url)
 
@@ -62,8 +64,7 @@ def show_package_info(data):
 
 
 def get_package_data(package_name):
-    url_template = 'https://pypi.org/pypi/{package_name}/json'
-    url = url_template.format(package_name=package_name)
+    url = f"https://pypi.org/pypi/{package_name}/json"
     resp = requests.get(url)
     if resp.status_code != 200:
         raise ValueError('No such package')
@@ -77,9 +78,7 @@ def parse_packages_from_html(html_content):
 
 
 def search_for_package(package_name):
-    url_template = ('https://pypi.python.org/'
-                    'pypi?:action=search&term={package_name}')
-    url = url_template.format(package_name=package_name)
+    url = f"https://pypi.python.org/pypi?:action=search&term={package_name}"
     resp = requests.get(url)
     if resp.status_code != 200:
         return []
@@ -90,8 +89,7 @@ def main(package_name=''):
     try:
         package_data = get_package_data(package_name)
     except ValueError as e:
-        error_text = colored('No such package "%s"' % package_name, 'red')
-        print(error_text)
+        rprint(f"[red]No such package '{package_name}'[/]")
         return
 
     releases = package_data['releases']
@@ -121,14 +119,11 @@ def main(package_name=''):
 
     for version in versions:
         if version == most_popular_release == most_recent_release:
-            text = colored('(%s) Most popular and recent. Use it' % version, 'green')
-            print(text)
+            rprint(f"[green]({version}) Most popular and recent. Use this one.[/]")
         elif version == most_popular_release:
-            text = colored('(%s) Most popular. %s downloads' % (version, most_popular_count), 'yellow')
-            print(text)
+            rprint(f"[yellow]({version}) Most popular: {most_popular_count} downloads.[/]")
         elif version == most_recent_release:
-            text = colored('(%s) Most recent. %s release date' % (version, most_recent_date.strftime(DATE_FORMAT)), 'blue')
-            print(text)
+            release_date = most_recent_date.strftime(DATE_FORMAT)
+            rprint(f"[cyan]({version}) Most recent: {release_date} release date.[/]")
         else:
-            text = '(%s)' % version
-            print(text)
+            rprint(f"({version})")
