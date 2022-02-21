@@ -32,11 +32,14 @@ $ pip install leak
 $ python -m pip install leak
 ```
 
-or directly from github
+or upgrade existing version
 
 ```bash
-$ git clone git://github.com/bmwant/leak.git
-$ python setup.py install
+$ pip install --upgrade leak
+
+# or with pip invoked as a module
+$ python -m pip install --upgrade leak
+$ leak --version
 ```
 
 ### Contribution
