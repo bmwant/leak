@@ -49,3 +49,7 @@ See [DEVELOP.md](./DEVELOP.md) to setup your local development environment and c
 ### License
 
 Distributed under [MIT License](https://tldrlegal.com/license/mit-license).
+
+### Acknowledgement
+
+🇺🇦 🇺🇦 🇺🇦 We would also thank the Armed Forces of Ukraine for providing security to perform this work. This work has become possible only because of resilience and courage of the Ukrainian Army.
