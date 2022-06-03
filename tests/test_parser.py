@@ -1,6 +1,6 @@
 import pytest
 
-from leak.version_parser import versions_split
+from leak.parser import versions_split
 
 
 def test_versions_split():
