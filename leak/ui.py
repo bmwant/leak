@@ -1,36 +1,41 @@
 import functools
 from packaging.version import parse as parse_version
 
+from rich import box
+from rich.console import Group
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
+from rich.padding import Padding
+
 from leak import config, parser
 from leak import logger, rprint
 
 
 def show_package_info(data):
-    def print_row(caption_text, value):
-        caption = caption_text.ljust(config.FIRST_COLUMN_LENGTH)
-        print("%s %s" % (caption, value))
-
     info = data["info"]
     name = info["name"]
-    summary = info["summary"]
     author = info["author"]
     author_email = info["author_email"]
     url = info["home_page"]
     versions_count = len(data["releases"])
 
-    print("=" * 80)
-
-    rprint(f"[bold bright_white]{name}[/]")
-    print(summary)
-
-    print("-" * 80)
-
-    print_row("Author:", author)
-    print_row("Author's email:", author_email)
-    print_row("Available versions:", versions_count)
-    print_row("Home page:", url)
-
-    print("=" * 80)
+    table = Table(show_header=False, show_footer=False, box=box.SIMPLE)
+    table.add_row("Author:", author)
+    table.add_row("Email:", author_email)
+    table.add_row("Home page:", url)
+    summary = Padding(Text(f'{info["summary"]}', style="bold bright_white"), (1, 2))
+    group = Group(
+        summary,
+        table,
+    )
+    panel = Panel(
+        group,
+        expand=False,
+        title=f"{name}",
+        subtitle=f"{versions_count} versions available",
+    )
+    rprint(panel)
 
 
 def show_package_versions(releases):
