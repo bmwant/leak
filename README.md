@@ -1,6 +1,6 @@
 ## leak
 
-![PyPI](https://img.shields.io/pypi/v/leak?style=flat-square)
+[![PyPI](https://img.shields.io/pypi/v/leak?style=flat-square)](https://pypi.org/project/leak/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/leak?style=flat-square)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/leak?style=flat-square)
 ![PyPI - License](https://img.shields.io/pypi/l/leak?style=flat-square)
@@ -45,7 +45,11 @@ $ leak --version
 
 ### Contribution
 
-See [DEVELOP.md](./DEVELOP.md) to setup your local development environment and create pull request to this repository once new feature is ready.
+See [DEVELOP.md](https://github.com/bmwant/leak/blob/main/DEVELOP.md) to setup your local development environment and create pull request to this repository once new feature is ready.
+
+### Releases
+
+See [CHANGELOG.md](https://github.com/bmwant/leak/blob/main/CHANGELOG.md) for the new features included within each release.
 
 ### License
 
