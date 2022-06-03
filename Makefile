@@ -17,9 +17,15 @@ clean:
 	rm -rf build/
 	rm -rf dist/
 
+.PHONY: build
+build:
+	@echo "Building package"
+	@poetry build
+
 .PHONY: release
-release: clean
-	@echo "Releasing"
+release: clean build
+	@echo "Publishing package"
+	@poetry publish
 
 .PHONY: lint
 lint:

@@ -39,7 +39,8 @@ Bump a version with features you want to include and build a package
 $ poetry version patch  # patch version update
 $ poetry version minor
 $ poetry version major  # choose one based on semver rules
-$ poetry build
+$ poetry build  # just builds a package
+$ make release  # clean + build + publish
 ```
 
 Upload package to GitHub and PyPI
@@ -47,5 +48,5 @@ Upload package to GitHub and PyPI
 ```bash
 $ git tag -a 1.3.0 -m "Version 1.3.0"
 $ git push --tags
-$ poetry publish  # upload package to PyPI
+$ poetry publish  # only uploads package to PyPI
 ```
