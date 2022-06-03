@@ -1,4 +1,5 @@
 import sys
+from typing import Dict
 
 import requests
 
@@ -14,6 +15,16 @@ def get_package_data(package_name: str):
 
     data = resp.json()
     return data
+
+
+def get_downloads_data(package_name: str) -> Dict:
+    url = f"https://api.pepy.tech/api/v2/projects/{package_name}"
+    resp = requests.get(url)
+    if resp.status_code != 200:
+        raise RuntimeError("Cannot get downloads data for package")
+
+    data = resp.json()
+    return data["downloads"]
 
 
 def parse_packages_from_html(html_content):
@@ -37,5 +48,6 @@ def main(package_name: str = ""):
         return sys.exit(1)
 
     releases = package_data["releases"]
+    downloads = get_downloads_data(package_name)
     ui.show_package_info(package_data)
-    ui.show_package_versions(releases)
+    ui.show_package_versions(releases, downloads)

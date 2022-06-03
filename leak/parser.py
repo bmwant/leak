@@ -41,3 +41,10 @@ def get_latest_time_for_release(release: List[Dict]) -> str:
         if upload_time > latest_time:
             latest_time = upload_time
     return latest_time
+
+
+def get_downloads_for_version(version: str, downloads_data: Dict) -> int:
+    downloads = 0
+    for date, data in downloads_data.items():
+        downloads += data.get(version, 0)
+    return downloads
