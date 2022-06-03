@@ -15,15 +15,15 @@ from leak import logger, rprint
 def show_package_info(data):
     info = data["info"]
     name = info["name"]
-    author = info["author"]
-    author_email = info["author_email"]
-    url = info["home_page"]
     versions_count = len(data["releases"])
 
     table = Table(show_header=False, show_footer=False, box=box.SIMPLE)
-    table.add_row("Author:", author)
-    table.add_row("Email:", author_email)
-    table.add_row("Home page:", url)
+    table.add_row("Author:", info["author"])
+    table.add_row("Email:", info["author_email"])
+    table.add_row("Home page:", info["home_page"])
+    table.add_row("License:", info["license"])
+    table.add_row("Version:", info["version"])
+
     summary = Padding(Text(f'{info["summary"]}', style="bold bright_white"), (1, 2))
     group = Group(
         summary,
@@ -34,13 +34,14 @@ def show_package_info(data):
         expand=False,
         title=f"{name}",
         subtitle=f"{versions_count} versions available",
+        border_style="cyan",
     )
     rprint(panel)
 
 
 def show_package_versions(releases):
-    most_popular_count = 0
-    most_popular_release = None
+    most_popular_count = 0  # noqa
+    most_popular_release = None  # noqa
     most_recent_release = None
     most_recent_date = config.EPOCH_BEGIN
 
@@ -54,24 +55,31 @@ def show_package_versions(releases):
 
     for release_num, release_data in releases.items():
         downloads_count = parser.get_max_downloads_for_release(release_data)
-        if downloads_count > most_popular_count:
-            most_popular_count = downloads_count
-            most_popular_release = release_num
+        if downloads_count:
+            print(downloads_count)
 
         upload_date = parser.get_latest_time_for_release(release_data)
         if upload_date > most_recent_date:
             most_recent_date = upload_date
-            most_recent_release = release_num
+            most_recent_release = release_num  # noqa
 
-    for version in versions:
-        if version == most_popular_release == most_recent_release:
-            rprint(f"[green]({version}) Most popular and recent. Use this one.[/]")
-        elif version == most_popular_release:
-            rprint(
-                f"[yellow]({version}) Most popular: {most_popular_count} downloads.[/]"
-            )
-        elif version == most_recent_release:
-            release_date = most_recent_date.strftime(config.DATE_FORMAT)
-            rprint(f"[cyan]({version}) Most recent: {release_date} release date.[/]")
-        else:
-            rprint(f"({version})")
+    table = Table(show_header=False, show_footer=False, box=box.SIMPLE)
+    table.add_column("Version")
+    table.add_column("Release date")
+    table.add_column("Downloads")
+
+    for version in versions[: config.SHOW_LATEST_RELEASES]:
+        release_data = releases[version]
+        downloads_count = parser.get_max_downloads_for_release(release_data)
+        downloads_count_str = str(downloads_count) if downloads_count else ""
+        upload_date = parser.get_latest_time_for_release(release_data)
+        upload_date_str = upload_date.strftime(config.DATE_FORMAT)
+        table.add_row(version, upload_date_str, downloads_count_str)
+
+    panel = Panel(
+        table,
+        expand=False,
+        border_style="yellow",
+        title="Recent releases",
+    )
+    rprint(panel)

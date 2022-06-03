@@ -1,4 +1,5 @@
 import datetime
+from typing import Dict, List
 
 from leak import config, logger
 
@@ -22,7 +23,7 @@ def versions_split(version_str, type_applyer=int):
     return list(map(type_applyer, (major, minor, patch)))
 
 
-def get_max_downloads_for_release(release):
+def get_max_downloads_for_release(release: List[Dict]) -> int:
     max_downloads = 0
     for release_record in release:
         if release_record["downloads"] > max_downloads:
@@ -30,7 +31,7 @@ def get_max_downloads_for_release(release):
     return max_downloads
 
 
-def get_latest_time_for_release(release):
+def get_latest_time_for_release(release: List[Dict]) -> str:
     latest_time = config.EPOCH_BEGIN
     date_format = "%Y-%m-%dT%H:%M:%S"
     for release_record in release:
