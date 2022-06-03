@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "leak"
-version = "1.3.0"
+version = "1.4.0"
 description = "Show release information about packages on PyPI"
 authors = ["Misha Behersky <bmwant@gmail.com>"]
 license = "MIT"

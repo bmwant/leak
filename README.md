@@ -4,6 +4,7 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/leak?style=flat-square)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/leak?style=flat-square)
 ![PyPI - License](https://img.shields.io/pypi/l/leak?style=flat-square)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/leak?style=flat-square)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 ![Unittests](https://github.com/bmwant/leak/actions/workflows/unittests.yml/badge.svg)
 
