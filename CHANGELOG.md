@@ -1,9 +1,13 @@
-### 1.5.0 🚜 ongoing work
+### 1.6.0 🚜 ongoing work
+
+
+## 1.5.0 📦 current package
 
 * Drop support for Python 3.6
 * Use nice terminal UI for the output
+* Add missing [packaging](https://github.com/pypa/packaging) library to the dependencies
 
-## 1.4.0 📦 current package
+## 1.4.0
 
 * Migrate to click for the arguments parsing
 * Integrate with GitHub Actions for CI
