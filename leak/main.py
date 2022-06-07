@@ -1,10 +1,16 @@
 import sys
+from contextlib import contextmanager
 from typing import Dict
 
 import requests
 
-from leak import logger, rprint
-from leak import ui
+from leak import logger, console
+from leak import config, ui
+
+
+@contextmanager
+def dummy_context():
+    yield
 
 
 def get_package_data(package_name: str):
@@ -39,15 +45,20 @@ def search_for_package(package_name: str):
     return parse_packages_from_html(resp.text)
 
 
-def main(package_name: str = ""):
+def main(package_name: str = "", showall: bool = False):
     try:
         package_data = get_package_data(package_name)
     except ValueError as e:
         logger.error(e)
-        rprint(f"No such package [bold red]{package_name}[/]")
+        console.print(f"No such package [bold red]{package_name}[/]")
         return sys.exit(1)
 
     releases = package_data["releases"]
     downloads = get_downloads_data(package_name)
-    ui.show_package_info(package_data)
-    ui.show_package_versions(releases, downloads)
+    context = dummy_context
+    if showall and len(releases) > config.SHOW_PAGER:
+        context = console.pager
+
+    with context():
+        ui.show_package_info(package_data)
+        ui.show_package_versions(releases, downloads)

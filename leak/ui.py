@@ -37,6 +37,7 @@ def show_package_info(data):
         subtitle=f"{versions_count} versions available",
         border_style="cyan",
     )
+
     rprint(panel)
 
 
@@ -85,4 +86,5 @@ def show_package_versions(releases, downloads: Dict = None):
         border_style="yellow",
         title="Recent releases",
     )
+
     rprint(panel)
