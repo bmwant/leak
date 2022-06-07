@@ -12,7 +12,7 @@ def test_executable_invocation(
 
     assert result.exit_code == 0
 
-    main_mock.assert_called_once_with(package_name="podmena")
+    main_mock.assert_called_once_with(package_name="podmena", showall=False)
     assert result.output == ""
 
 
