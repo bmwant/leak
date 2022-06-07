@@ -41,7 +41,7 @@ def show_package_info(data):
     rprint(panel)
 
 
-def show_package_versions(releases, downloads: Dict = None):
+def show_package_versions(releases, downloads: Dict = None, showall: bool = False):
     most_popular_count = 0  # noqa
     most_popular_release = None  # noqa
     most_recent_release = None
@@ -70,7 +70,8 @@ def show_package_versions(releases, downloads: Dict = None):
     table.add_column(Padding("date", (1, 0)), justify="center")
     table.add_column(Padding("downloads", (1, 0)), justify="right")
 
-    for version in versions[: config.SHOW_LATEST_RELEASES]:
+    list_versions = versions if showall else versions[: config.SHOW_LATEST_RELEASES]
+    for version in list_versions:
         release_data = releases[version]
         downloads_count = parser.get_downloads_for_version(
             version, downloads_data=downloads
@@ -84,7 +85,7 @@ def show_package_versions(releases, downloads: Dict = None):
         table,
         expand=False,
         border_style="yellow",
-        title="Recent releases",
+        title="List of releases" if showall else "Recent releases",
     )
 
     rprint(panel)

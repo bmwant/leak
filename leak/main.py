@@ -61,4 +61,4 @@ def main(package_name: str = "", showall: bool = False):
 
     with context():
         ui.show_package_info(package_data)
-        ui.show_package_versions(releases, downloads)
+        ui.show_package_versions(releases, downloads, showall)

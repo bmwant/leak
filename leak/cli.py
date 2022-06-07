@@ -12,12 +12,19 @@ from leak import main
     "package_name",
     required=True,
 )
-def cli(package_name):
+@click.option(
+    "-a",
+    "--all",
+    "showall",
+    is_flag=True,
+    default=False,
+)
+def cli(package_name, showall):
     """Shows all releases for a package and some info about it.
 
     PACKAGE_NAME Name of the package to fetch info about.
     """
-    main.main(package_name=package_name)
+    main.main(package_name=package_name, showall=showall)
 
 
 if __name__ == "__main__":

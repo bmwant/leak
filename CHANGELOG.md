@@ -1,5 +1,7 @@
 ### 1.6.0 🚜 ongoing work
 
+* Add `--all` flag to show all versions available
+* Add paginator if list of results is too long
 
 ## 1.5.0 📦 current package
 
