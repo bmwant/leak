@@ -9,7 +9,7 @@ from leak import config, ui
 
 
 @contextmanager
-def dummy_context():
+def dummy_context(*args, **kwargs):
     yield
 
 
@@ -59,6 +59,6 @@ def main(package_name: str = "", showall: bool = False):
     if showall and len(releases) > config.SHOW_PAGER:
         context = console.pager
 
-    with context():
+    with context(styles=True):
         ui.show_package_info(package_data)
         ui.show_package_versions(releases, downloads, showall)
