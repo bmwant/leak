@@ -28,7 +28,7 @@ def show_package_info(data):
 
     highlight_link = ReprHighlighter()
     highlight_email = SomeEmailsHighlighter()
-    table = Table(show_header=False, show_footer=False, box=box.SIMPLE)
+    table = Table(show_header=False, show_footer=False, box=box.SIMPLE, expand=True)
     table.add_row("Author:", info["author"])
     table.add_row("Email:", highlight_email(info["author_email"]))
     table.add_row("Home page:", highlight_link(info["home_page"]))
@@ -42,12 +42,12 @@ def show_package_info(data):
     )
     panel = Panel(
         group,
-        expand=False,
+        expand=True,
         title=f"{name}",
         subtitle=f"{versions_count} versions available",
         border_style="cyan",
+        width=config.PANEL_WIDTH,
     )
-
     rprint(panel)
 
 
@@ -75,7 +75,12 @@ def show_package_versions(releases, downloads: Dict = None, showall: bool = Fals
             most_recent_date = upload_date
             most_recent_release = release_num  # noqa
 
-    table = Table(show_header=True, show_footer=False, box=None)
+    table = Table(
+        show_header=True,
+        show_footer=False,
+        box=None,
+        expand=True,
+    )
     table.add_column(Padding("version", (1, 0)))
     table.add_column(Padding("date", (1, 0)), justify="center")
     table.add_column(Padding("downloads", (1, 0)), justify="right")
@@ -93,8 +98,9 @@ def show_package_versions(releases, downloads: Dict = None, showall: bool = Fals
 
     panel = Panel(
         table,
-        expand=False,
+        expand=True,
         border_style="yellow",
+        width=config.PANEL_WIDTH,
         title="List of releases" if showall else "Recent releases",
     )
 

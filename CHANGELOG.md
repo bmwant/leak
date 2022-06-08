@@ -2,6 +2,8 @@
 
 * Add `--all` flag to show all versions available
 * Add paginator if list of results is too long
+* Adjust size of both panels
+* Highlight homapage and email links
 
 ## 1.5.0 📦 current package
 
