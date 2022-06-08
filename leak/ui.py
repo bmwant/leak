@@ -8,9 +8,17 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 from rich.padding import Padding
+from rich.highlighter import ReprHighlighter, RegexHighlighter
 
 from leak import config, parser
 from leak import logger, rprint
+
+
+class SomeEmailsHighlighter(RegexHighlighter):
+    """Apply style to the emails mathching this simple regex"""
+
+    base_style = "repr."
+    highlights = [r"(?P<path>[\w\.\+-]+@([\w-]+\.)+[\w-]+)"]
 
 
 def show_package_info(data):
@@ -18,10 +26,12 @@ def show_package_info(data):
     name = info["name"]
     versions_count = len(data["releases"])
 
+    highlight_link = ReprHighlighter()
+    highlight_email = SomeEmailsHighlighter()
     table = Table(show_header=False, show_footer=False, box=box.SIMPLE)
     table.add_row("Author:", info["author"])
-    table.add_row("Email:", info["author_email"])
-    table.add_row("Home page:", info["home_page"])
+    table.add_row("Email:", highlight_email(info["author_email"]))
+    table.add_row("Home page:", highlight_link(info["home_page"]))
     table.add_row("License:", info["license"])
     table.add_row("Version:", info["version"])
 
