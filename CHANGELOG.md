@@ -1,11 +1,13 @@
-### 1.6.0 🚜 ongoing work
+### 1.7.0 🚜 ongoing work
+
+## 1.6.0 📦 current package
 
 * Add `--all` flag to show all versions available
 * Add paginator if list of results is too long
 * Adjust size of both panels
 * Highlight homapage and email links
 
-## 1.5.0 📦 current package
+## 1.5.0
 
 * Drop support for Python 3.6
 * Use nice terminal UI for the output
