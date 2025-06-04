@@ -1,6 +1,13 @@
-### 1.7.0 🚜 ongoing work
+### 2.1.0 🚜 ongoing work
 
-## 1.6.0 📦 current package
+## 2.0.0 📦 current package
+
+* Drop support for Python 3.7 and Python 3.8
+* Migrate to Poetry 2.0
+* Migrate to ruff for codestyle and linting
+* Do not fail if downloads data is not available
+
+## 1.6.0
 
 * Add `--all` flag to show all versions available
 * Add paginator if list of results is too long

@@ -47,6 +47,12 @@ pytest = "^8.4.0"
 tox = "^4.26.0"
 ruff = "^0.11.12"
 
+[tool.ruff.lint]
+extend-select = [
+  # isort
+  "I",
+]
+
 [project.scripts]
 leak = 'leak.cli:cli'
 

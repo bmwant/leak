@@ -1,6 +1,5 @@
-import os
 import datetime
-
+import os
 
 DEBUG = bool(os.getenv("LEAK_DEBUG", default=""))
 DATE_FORMAT = "%Y/%m/%d %H:%M"

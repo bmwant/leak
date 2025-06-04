@@ -1,17 +1,16 @@
 import functools
 from typing import Dict, Optional
-from packaging.version import parse as parse_version
 
+from packaging.version import parse as parse_version
 from rich import box
 from rich.console import Group
+from rich.highlighter import RegexHighlighter, ReprHighlighter
+from rich.padding import Padding
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from rich.padding import Padding
-from rich.highlighter import ReprHighlighter, RegexHighlighter
 
-from leak import config, parser
-from leak import logger, rprint
+from leak import config, logger, parser, rprint
 
 
 class SomeEmailsHighlighter(RegexHighlighter):

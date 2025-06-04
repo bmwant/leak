@@ -4,8 +4,7 @@ from typing import Dict
 
 import requests
 
-from leak import logger, console
-from leak import config, ui
+from leak import config, console, logger, ui
 
 
 @contextmanager
