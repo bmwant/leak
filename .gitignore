@@ -56,3 +56,5 @@ target/
 # IDE
 .idea/
 .vscode/
+.pytest_cache/
+.ruff_cache/

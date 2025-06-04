@@ -8,7 +8,6 @@ def test_wrong_package_name(
     exit_mock,
     capsys,
 ):
-
     with patch(
         "leak.main.get_package_data", side_effect=ValueError
     ) as get_package_data_mock:
