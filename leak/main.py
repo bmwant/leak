@@ -13,7 +13,7 @@ def dummy_context(*args, **kwargs):
     yield
 
 
-def get_package_data(package_name: str):
+def get_package_data(package_name: str) -> Dict:
     url = f"https://pypi.org/pypi/{package_name}/json"
     resp = requests.get(url)
     if resp.status_code != 200:
@@ -27,10 +27,11 @@ def get_downloads_data(package_name: str) -> Dict:
     url = f"https://api.pepy.tech/api/v2/projects/{package_name}"
     resp = requests.get(url)
     if resp.status_code != 200:
-        raise RuntimeError("Cannot get downloads data for package")
+        logger.error(f"Cannot get downloads data: [{resp.status_code}] {resp.text}")
+        return {}
 
     data = resp.json()
-    return data["downloads"]
+    return data.get("downloads", {})
 
 
 def parse_packages_from_html(html_content):

@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger(__package__)
 
 if config.DEBUG:
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
 console = Console(highlight=False)
 rprint = console.print
