@@ -5,7 +5,7 @@
 [![PyPI - Wheel](https://img.shields.io/pypi/wheel/leak?style=flat-square)](https://pypi.org/project/leak/#files)
 [![PyPI - License](https://img.shields.io/pypi/l/leak?style=flat-square)](https://tldrlegal.com/license/mit-license)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/leak?style=flat-square)](https://pypi.org/project/leak/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 [![Unittests](https://github.com/bmwant/leak/actions/workflows/unittests.yml/badge.svg)](https://github.com/bmwant/leak/actions/workflows/unittests.yml)
 
