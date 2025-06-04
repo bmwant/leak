@@ -26,7 +26,3 @@ build:
 release: clean build
 	@echo "Publishing package"
 	@poetry publish
-
-.PHONY: lint
-lint:
-	@poetry run flake8 --count .
