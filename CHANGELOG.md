@@ -1,6 +1,11 @@
-### 2.1.0 🚜 ongoing work
+### 2.2.0 🚜 ongoing work
 
-## 2.0.0 📦 current package
+## 2.1.0 📦 current package
+
+* Properly parse author/email/homepage/license from the fields available
+* Use [pydantic-settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/) for configuration management
+
+## 2.0.0
 
 * Drop support for Python 3.7 and Python 3.8
 * Migrate to Poetry 2.0
