@@ -1,5 +1,7 @@
 from datetime import datetime
+from email.header import decode_header
 from email.utils import parseaddr
+from typing import Optional
 
 from leak import config, logger
 
@@ -49,20 +51,26 @@ def get_downloads_for_version(version: str, downloads_data: dict) -> int:
     return downloads
 
 
+def decode_name(encoded_data) -> str:
+    decoded_parts = decode_header(encoded_data)
+    name, encoding = decoded_parts[0]
+    return name.decode(encoding) if isinstance(name, bytes) else name
+
+
 def get_author(info: dict) -> str:
     if "author" in info and info["author"]:
         return info["author"]
 
     if "author_email" in info and info["author_email"]:
         emails = info["author_email"].split(",")
-        return parseaddr(emails[0])[0]
+        return decode_name(parseaddr(emails[0])[0])
 
     if "maintainer" in info and info["maintainer"]:
         return info["maintainer"]
 
     if "maintainer_email" in info and info["maintainer_email"]:
-        emails = info["author_email"].split(",")
-        return parseaddr(emails[0])[0]
+        emails = info["maintainer_email"].split(",")
+        return decode_name(parseaddr(emails[0])[0])
     return "n/a"
 
 
@@ -72,7 +80,7 @@ def get_email(info) -> str:
         return parseaddr(emails[0])[1]
 
     if "maintainer_email" in info and info["maintainer_email"]:
-        emails = info["author_email"].split(",")
+        emails = info["maintainer_email"].split(",")
         return parseaddr(emails[0])[1]
     return "n/a"
 
@@ -87,4 +95,15 @@ def get_homepage(info) -> str:
 
 
 def get_license(info) -> str:
-    return "n/a"
+    if "license" in info and info["license"]:
+        return info["license"]
+    if "license_expression" in info and info["license_expression"]:
+        return info["license_expression"]
+    license_class = get_license_from_classifiers(info.get("classifiers", []))
+    return license_class or "n/a"
+
+
+def get_license_from_classifiers(classifiers: list[str]) -> Optional[str]:
+    for classifier in classifiers:
+        if classifier.startswith("License"):
+            return classifier.split("::")[-1].strip()
