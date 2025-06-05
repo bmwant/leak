@@ -1,6 +1,5 @@
 import sys
 from contextlib import contextmanager
-from typing import Dict
 
 import requests
 
@@ -12,7 +11,7 @@ def dummy_context(*args, **kwargs):
     yield
 
 
-def get_package_data(package_name: str) -> Dict:
+def get_package_data(package_name: str) -> dict:
     url = f"https://pypi.org/pypi/{package_name}/json"
     resp = requests.get(url)
     if resp.status_code != 200:
@@ -22,7 +21,7 @@ def get_package_data(package_name: str) -> Dict:
     return data
 
 
-def get_downloads_data(package_name: str) -> Dict:
+def get_downloads_data(package_name: str) -> dict:
     url = f"https://api.pepy.tech/api/v2/projects/{package_name}"
     resp = requests.get(url)
     if resp.status_code != 200:

@@ -1,5 +1,4 @@
 import functools
-from typing import Dict, Optional
 
 from packaging.version import parse as parse_version
 from rich import box
@@ -52,9 +51,7 @@ def show_package_info(data):
     rprint(panel)
 
 
-def show_package_versions(
-    releases, downloads: Optional[Dict] = None, showall: bool = False
-):
+def show_package_versions(releases, downloads: dict, showall: bool = False):
     most_popular_count = 0  # noqa
     most_popular_release = None  # noqa
     most_recent_release = None
