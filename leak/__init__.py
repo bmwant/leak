@@ -2,7 +2,7 @@ import logging
 
 from rich.console import Console
 
-from . import config
+from .settings import config
 
 logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger(__package__)
