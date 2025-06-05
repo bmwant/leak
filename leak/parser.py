@@ -1,10 +1,9 @@
-import datetime
-from typing import Dict, List
+from datetime import datetime
 
 from leak import config, logger
 
 
-def versions_split(version_str, type_applyer=int):
+def versions_split(version_str, type_applyer=int) -> list[int]:
     dots_count = version_str.count(".")
     if dots_count == 0:
         major, minor, patch = version_str, 0, 0
@@ -24,7 +23,7 @@ def versions_split(version_str, type_applyer=int):
     return list(map(type_applyer, (major, minor, patch)))
 
 
-def get_max_downloads_for_release(release: List[Dict]) -> int:
+def get_max_downloads_for_release(release: list[dict]) -> int:
     max_downloads = 0
     for release_record in release:
         if release_record["downloads"] > max_downloads:
@@ -32,19 +31,17 @@ def get_max_downloads_for_release(release: List[Dict]) -> int:
     return max_downloads
 
 
-def get_latest_time_for_release(release: List[Dict]) -> str:
+def get_latest_time_for_release(release: list[dict]) -> datetime:
     latest_time = config.EPOCH_BEGIN
     date_format = "%Y-%m-%dT%H:%M:%S"
     for release_record in release:
-        upload_time = datetime.datetime.strptime(
-            release_record["upload_time"], date_format
-        )
+        upload_time = datetime.strptime(release_record["upload_time"], date_format)
         if upload_time > latest_time:
             latest_time = upload_time
     return latest_time
 
 
-def get_downloads_for_version(version: str, downloads_data: Dict) -> int:
+def get_downloads_for_version(version: str, downloads_data: dict) -> int:
     downloads = 0
     for date, data in downloads_data.items():
         downloads += data.get(version, 0)
