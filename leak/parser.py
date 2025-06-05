@@ -1,4 +1,5 @@
 from datetime import datetime
+from email.utils import parseaddr
 
 from leak import config, logger
 
@@ -46,3 +47,44 @@ def get_downloads_for_version(version: str, downloads_data: dict) -> int:
     for date, data in downloads_data.items():
         downloads += data.get(version, 0)
     return downloads
+
+
+def get_author(info: dict) -> str:
+    if "author" in info and info["author"]:
+        return info["author"]
+
+    if "author_email" in info and info["author_email"]:
+        emails = info["author_email"].split(",")
+        return parseaddr(emails[0])[0]
+
+    if "maintainer" in info and info["maintainer"]:
+        return info["maintainer"]
+
+    if "maintainer_email" in info and info["maintainer_email"]:
+        emails = info["author_email"].split(",")
+        return parseaddr(emails[0])[0]
+    return "n/a"
+
+
+def get_email(info) -> str:
+    if "author_email" in info and info["author_email"]:
+        emails = info["author_email"].split(",")
+        return parseaddr(emails[0])[1]
+
+    if "maintainer_email" in info and info["maintainer_email"]:
+        emails = info["author_email"].split(",")
+        return parseaddr(emails[0])[1]
+    return "n/a"
+
+
+def get_homepage(info) -> str:
+    if "home_page" in info and info["home_page"]:
+        return info["home_page"]
+    if "project_url" in info and info["project_url"]:
+        return info["project_url"]
+    homepage = info.get("project_urls", {}).get("Homepage", "n/a")
+    return homepage
+
+
+def get_license(info) -> str:
+    return "n/a"

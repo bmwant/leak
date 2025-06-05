@@ -13,7 +13,7 @@ from leak import config, logger, parser, rprint
 
 
 class SomeEmailsHighlighter(RegexHighlighter):
-    """Apply style to the emails mathching this simple regex"""
+    """Apply style to the emails matching this simple regex"""
 
     base_style = "repr."
     highlights = [r"(?P<path>[\w\.\+-]+@([\w-]+\.)+[\w-]+)"]
@@ -27,12 +27,10 @@ def show_package_info(data):
     highlight_link = ReprHighlighter()
     highlight_email = SomeEmailsHighlighter()
     table = Table(show_header=False, show_footer=False, box=box.SIMPLE, expand=True)
-    table.add_row("Author:", info.get("author", "-"))
-    email = info.get("author_email")
-    homepage = info.get("home_page")
-    table.add_row("Email:", highlight_email(email) if email else "-")
-    table.add_row("Home page:", highlight_link(homepage) if homepage else "-")
-    table.add_row("License:", info.get("license", "-"))
+    table.add_row("Author:", parser.get_author(info))
+    table.add_row("Email:", highlight_email(parser.get_email(info)))
+    table.add_row("Home page:", highlight_link(parser.get_homepage(info)))
+    table.add_row("License:", parser.get_license(info))
     table.add_row("Version:", info["version"])
 
     summary = Padding(Text(f"{info['summary']}", style="bold bright_white"), (1, 2))
