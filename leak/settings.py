@@ -11,18 +11,19 @@ from pydantic_settings import (
 
 CONFIG_FILEPATH = Path("~/.config/leak/config.ini").expanduser()
 CONFIG_FILEPATH.parent.mkdir(parents=True, exist_ok=True)
+DEFAULT_SECTION = "config"
 
 
 class ConfigparserSettingsSource(PydanticBaseSettingsSource):
     def get_field_value(self, field, field_name: str) -> tuple[Any, str, bool]:
         NO_VALUE = (None, field_name, False)
-        SECTION = "config"
+
         config_filepath = self.config.get("config_filepath")
         if not config_filepath.exists():
             return NO_VALUE
         config_parser = configparser.ConfigParser()
         config_parser.read(config_filepath)
-        if SECTION not in config_parser:
+        if DEFAULT_SECTION not in config_parser:
             return NO_VALUE
         field_value = config_parser.get("config", field_name, fallback=None)
         return field_value, field_name, False
