@@ -25,7 +25,8 @@ class ConfigparserSettingsSource(PydanticBaseSettingsSource):
         config_parser.read(config_filepath)
         if DEFAULT_SECTION not in config_parser:
             return NO_VALUE
-        field_value = config_parser.get("config", field_name, fallback=None)
+        config_field_name = field_name.lower().replace("_", "-")
+        field_value = config_parser.get("config", config_field_name, fallback=None)
         return field_value, field_name, False
 
     def __call__(self) -> dict[str, Any]:
@@ -73,6 +74,7 @@ class Settings(BaseSettings):
     SHOW_PAGER: int = 30
     PANEL_WIDTH: int = 70
     API_KEY: Optional[str] = None
+    SHOW_DOWNLOADS: bool = True
 
 
 config = Settings()

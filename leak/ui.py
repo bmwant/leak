@@ -81,7 +81,8 @@ def show_package_versions(releases, downloads: dict, showall: bool = False):
     )
     table.add_column(Padding("version", (1, 0)))
     table.add_column(Padding("date", (1, 0)), justify="center")
-    table.add_column(Padding("downloads", (1, 0)), justify="right")
+    if downloads:
+        table.add_column(Padding("downloads", (1, 0)), justify="right")
 
     list_versions = versions if showall else versions[: config.SHOW_LATEST_RELEASES]
     for version in list_versions:
@@ -89,10 +90,12 @@ def show_package_versions(releases, downloads: dict, showall: bool = False):
         downloads_count = parser.get_downloads_for_version(
             version, downloads_data=downloads
         )
-        downloads_count_str = str(downloads_count) if downloads_count else ""
         upload_date = parser.get_latest_time_for_release(release_data)
         upload_date_str = upload_date.strftime(config.DATE_FORMAT)
-        table.add_row(version, upload_date_str, downloads_count_str)
+        row = [version, upload_date_str]
+        if downloads:
+            row.append(f"{downloads_count:,}")
+        table.add_row(*row)
 
     panel = Panel(
         table,
