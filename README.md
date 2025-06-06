@@ -18,11 +18,11 @@ If you need to install specific version of package it is useful to know all avai
 Just run
 
 ```bash
-$ leak <package_name>
+leak <package_name>
 # e.g.
-$ leak pyramid
+leak pyramid
 # show all available releases
-$ leak django --all
+leak django --all
 ```
 
 and you will see releases and some useful statistic about package specified. It will show most recent version, most popular (with highest number of downloads) and some additional information.
@@ -32,20 +32,20 @@ and you will see releases and some useful statistic about package specified. It 
 Install using pip
 
 ```bash
-$ pip install leak
+pip install leak
 
 # or to make sure the proper interpreter is used
-$ python -m pip install leak
+python -m pip install leak
 ```
 
 or upgrade existing version
 
 ```bash
-$ pip install --upgrade leak
+pip install --upgrade leak
 
 # or with pip invoked as a module
-$ python -m pip install --upgrade leak
-$ leak --version
+python -m pip install --upgrade leak
+leak --version
 ```
 
 ### Contribution

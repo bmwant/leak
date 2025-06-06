@@ -1,7 +1,7 @@
 import configparser
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from pydantic_settings import (
     BaseSettings,
@@ -72,6 +72,7 @@ class Settings(BaseSettings):
     SHOW_LATEST_RELEASES: int = 12
     SHOW_PAGER: int = 30
     PANEL_WIDTH: int = 70
+    API_KEY: Optional[str] = None
 
 
 config = Settings()

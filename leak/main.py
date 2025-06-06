@@ -23,7 +23,10 @@ def get_package_data(package_name: str) -> dict:
 
 def get_downloads_data(package_name: str) -> dict:
     url = f"https://api.pepy.tech/api/v2/projects/{package_name}"
-    resp = requests.get(url)
+    headers = {
+        "X-API-Key": config.API_KEY,
+    }
+    resp = requests.get(url, headers=headers)
     if resp.status_code != 200:
         logger.error(f"Cannot get downloads data: [{resp.status_code}] {resp.text}")
         return {}
