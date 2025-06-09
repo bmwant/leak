@@ -4,7 +4,9 @@ from leak import cli
 
 
 @patch("leak.cli.main.main")
+@patch("leak.cli.warning")
 def test_executable_invocation(
+    waring_mock,
     main_mock,
     runner,
 ):
@@ -14,6 +16,8 @@ def test_executable_invocation(
 
     main_mock.assert_called_once_with(package_name="podmena", showall=False)
     assert result.output == ""
+
+    waring_mock.assert_called_once()
 
 
 def test_invocation_missing_package_name(runner):
