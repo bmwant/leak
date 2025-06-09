@@ -4,6 +4,9 @@ from typing import Optional
 import click
 
 from leak import logger, main, settings
+from leak.ui import warning
+
+config = settings.config
 
 
 @click.command()
@@ -56,13 +59,25 @@ def cli(
 
     main.main(package_name=package_name, showall=showall)
 
+    if config.SHOW_DOWNLOADS and not config.API_KEY:
+        warning(
+            "API key is not set. Downloads are not shown. Configure it via\n"
+            "    [bold red]export LEAK_API_KEY=<your_api_key>[/]\n"
+            "or by running the command\n"
+            "    [bold red]leak --set api-key=<your_api_key>[/]\n"
+            "To simply hide this warning type\n"
+            "    [bold red]leak --set show-downloads=false[/]"
+        )
+
 
 def set_config_value(set_value: str):
     """Set a configuration value."""
     if "=" not in set_value:
-        raise click.BadParameter(f"Invalid format: '{set_value}'. Must be key=value.")
+        raise click.BadParameter(f"Bad format: '{set_value}'. Must be key=value.")
 
     key, value = set_value.split("=", 1)
+    if key not in config.allowed_config_keys():
+        raise click.BadParameter(f"Bad configuration key: '{key}'.")
 
     config_parser = configparser.ConfigParser()
     if settings.CONFIG_FILEPATH.exists():

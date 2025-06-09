@@ -83,6 +83,12 @@ class Settings(BaseSettings):
             CustomEnvSettingsSource(settings_cls),
         )
 
+    @classmethod
+    def allowed_config_keys(cls) -> set[str]:
+        # TODO: this should also respect `NotConfgirurable` annotation
+        normalize_name = lambda name: name.lower().replace("_", "-")  # noqa: E731
+        return set(map(normalize_name, cls.model_fields.keys()))
+
     DEBUG: bool = False
     DATE_FORMAT: str = "%Y/%m/%d %H:%M"
     EPOCH_BEGIN: Annotated[datetime, NotConfgirurable] = datetime.fromtimestamp(0)

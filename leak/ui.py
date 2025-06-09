@@ -106,3 +106,15 @@ def show_package_versions(releases, downloads: dict, showall: bool = False):
     )
 
     rprint(panel)
+
+
+def warning(message):
+    panel = Panel(
+        message,
+        expand=True,
+        border_style="bright_red",
+        width=config.PANEL_WIDTH,
+        title="▲",
+        title_align="left",
+    )
+    rprint(panel)

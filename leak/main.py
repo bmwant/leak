@@ -22,6 +22,10 @@ def get_package_data(package_name: str) -> dict:
 
 
 def get_downloads_data(package_name: str) -> dict:
+    if not config.API_KEY or not config.SHOW_DOWNLOADS:
+        logger.warning("Skipping downloads data retrieval")
+        return {}
+
     url = f"https://api.pepy.tech/api/v2/projects/{package_name}"
     headers = {
         "X-API-Key": config.API_KEY,
