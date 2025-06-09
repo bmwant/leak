@@ -29,11 +29,18 @@ from leak import logger, main, settings
     help="Set a configuration value",
 )
 @click.pass_context
-def cli(ctx, package_name: str, showall: bool, set_value: Optional[str] = None):
+def cli(
+    ctx, package_name: Optional[str], showall: bool, set_value: Optional[str] = None
+):
     """Shows all releases for a package and some info about it.
 
     PACKAGE_NAME Name of the package to fetch info about.
     """
+    if package_name is not None and set_value is not None:
+        raise click.UsageError(
+            "You cannot have configuration set flag together with a package name."
+        )
+
     if set_value is not None:
         logger.debug(f"Config setting invocation: {set_value}")
         set_config_value(set_value)

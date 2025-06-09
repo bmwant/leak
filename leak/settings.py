@@ -1,10 +1,11 @@
 import configparser
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Annotated, Any, Optional
 
 from pydantic_settings import (
     BaseSettings,
+    EnvSettingsSource,
     PydanticBaseSettingsSource,
     SettingsConfigDict,
 )
@@ -14,10 +15,18 @@ CONFIG_FILEPATH.parent.mkdir(parents=True, exist_ok=True)
 DEFAULT_SECTION = "config"
 
 
+class NotConfgirurable:
+    """Annotation to prevent setting of a field value from a configuration file."""
+
+    pass
+
+
 class ConfigparserSettingsSource(PydanticBaseSettingsSource):
     def get_field_value(self, field, field_name: str) -> tuple[Any, str, bool]:
         NO_VALUE = (None, field_name, False)
 
+        if NotConfgirurable in field.metadata:
+            return NO_VALUE
         config_filepath = self.config.get("config_filepath")
         if not config_filepath.exists():
             return NO_VALUE
@@ -45,6 +54,13 @@ class ConfigparserSettingsSource(PydanticBaseSettingsSource):
         return d
 
 
+class CustomEnvSettingsSource(EnvSettingsSource):
+    def get_field_value(self, field, field_name: str) -> tuple[Any, str, bool]:
+        if NotConfgirurable in field.metadata:
+            return (None, field_name, False)
+        return super().get_field_value(field, field_name)
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="LEAK_",
@@ -64,12 +80,12 @@ class Settings(BaseSettings):
         return (
             init_settings,
             ConfigparserSettingsSource(settings_cls),
-            env_settings,
+            CustomEnvSettingsSource(settings_cls),
         )
 
     DEBUG: bool = False
     DATE_FORMAT: str = "%Y/%m/%d %H:%M"
-    EPOCH_BEGIN: datetime = datetime.fromtimestamp(0)
+    EPOCH_BEGIN: Annotated[datetime, NotConfgirurable] = datetime.fromtimestamp(0)
     SHOW_LATEST_RELEASES: int = 12
     SHOW_PAGER: int = 30
     PANEL_WIDTH: int = 70
