@@ -11,7 +11,7 @@
 
 Show info about package releases on PyPI.
 
-![screenshot](https://github.com/bmwant/leak/blob/main/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/bmwant/leak/refs/heads/main/screenshot.png)
 
 If you need to install specific version of package it is useful to know all available versions to have a choice.
 
@@ -46,6 +46,28 @@ pip install --upgrade leak
 # or with pip invoked as a module
 python -m pip install --upgrade leak
 leak --version
+```
+
+### Obtaining downloads data
+
+It is possible to get downloads statistics for the target package by using third-party [pepy.tech](https://pepy.tech/) provider.
+Create your own [API key](https://pepy.tech/pepy-api)(note that free one is a subject to some limitations) and configure it like shown below
+
+```bash
+# for the current shell session through the environment
+export LEAK_API_KEY=<your_api_key>
+
+# or store it within a configuration file
+leak --set api-key=<your_api_key>
+```
+
+In case you are not interested in this data, and want to hide the warning displayed, run
+
+```bash
+leak --set show-downloads=false
+
+# to enable it back once you have an api key
+leak --set show-downloads=true
 ```
 
 ### Contribution
