@@ -56,7 +56,7 @@ def main(package_name: str = "", showall: bool = False):
         package_data = get_package_data(package_name)
     except ValueError as e:
         logger.error(e)
-        console.print(f"No such package [bold red]{package_name}[/]")
+        console.print(f"No such package [bold red]{package_name}[/].")
         return sys.exit(1)
 
     releases = package_data["releases"]

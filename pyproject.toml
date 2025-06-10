@@ -1,6 +1,6 @@
 [project]
 name = "leak"
-version = "2.1.0"
+version = "2.2.0"
 description = "Show release information about packages on PyPI"
 authors = [
   { name = "Misha Behersky", email = "bmwant@gmail.com" },
@@ -49,6 +49,7 @@ Repository = "https://github.com/bmwant/leak"
 pytest = "^8.4.0"
 tox = "^4.26.0"
 ruff = "^0.11.12"
+pytest-env = "^1.1.5"
 
 [tool.ruff.lint]
 extend-select = [
@@ -56,8 +57,12 @@ extend-select = [
   "I",
 ]
 
+[tool.pytest_env]
+LEAK_SHOW_DOWNLOADS = true
+LEAK_API_KEY = ""
+
 [project.scripts]
-leak = 'leak.cli:cli'
+leak = "leak.cli:cli"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

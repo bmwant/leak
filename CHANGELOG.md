@@ -1,6 +1,11 @@
-### 2.2.0 🚜 ongoing work
+### 2.3.0 🚜 ongoing work
 
-## 2.1.0 📦 current package
+## 2.2.0 📦 current package
+
+* Fix obtaining downloads data for the package
+* Allow storing settings in the configuration file
+
+## 2.1.0
 
 * Properly parse author/email/homepage/license from the fields available
 * Use [pydantic-settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/) for configuration management

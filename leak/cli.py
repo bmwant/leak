@@ -3,7 +3,7 @@ from typing import Optional
 
 import click
 
-from leak import logger, main, settings
+from leak import logger, main, rprint, settings
 from leak.ui import warning
 
 config = settings.config
@@ -90,6 +90,8 @@ def set_config_value(set_value: str):
 
     with open(settings.CONFIG_FILEPATH, "w") as f:
         config_parser.write(f)
+
+    rprint(f"Configuration value for [bold red]{key}[/] updated.")
 
 
 if __name__ == "__main__":
