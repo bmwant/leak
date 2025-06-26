@@ -96,7 +96,9 @@ def get_homepage(info) -> str:
 
 def get_license(info) -> str:
     if "license" in info and info["license"]:
-        return info["license"]
+        # Return the first non-empty line of the license
+        # as license field can contain full license text
+        return next(filter(bool, map(str.strip, info["license"].splitlines())))
     if "license_expression" in info and info["license_expression"]:
         return info["license_expression"]
     license_class = get_license_from_classifiers(info.get("classifiers", []))

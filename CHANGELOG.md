@@ -1,6 +1,10 @@
 ### 2.3.0 🚜 ongoing work
 
-## 2.2.0 📦 current package
+## 2.2.1 📦 current package
+
+* Fix displaying license name if full text is provided
+
+## 2.2.0
 
 * Fix obtaining downloads data for the package
 * Allow storing settings in the configuration file
