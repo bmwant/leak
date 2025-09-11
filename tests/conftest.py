@@ -1,7 +1,12 @@
+from pathlib import Path
+
 import pytest
 from click.testing import CliRunner
 
 from leak import settings
+
+CURRENT_DIR = Path(__file__).parent.resolve()
+DATA_DIR = CURRENT_DIR / "data"
 
 
 @pytest.fixture
