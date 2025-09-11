@@ -1,6 +1,6 @@
 import pytest
 
-from leak.parser import get_author, get_email, get_license, versions_split
+from leak.parser import get_author, get_email, get_homepage, get_license, versions_split
 
 
 def test_versions_split():
@@ -72,3 +72,18 @@ def test_get_author(package_name, expected_author, package_data):
     package_data = package_data(package_name)
     author = get_author(package_data)
     assert author == expected_author
+
+
+# TODO: Homepage to take priority from "project_url" field
+@pytest.mark.parametrize(
+    "package_name,expected_homepage",
+    [
+        ("django", "https://pypi.org/project/Django/"),
+        ("pydantic", "https://pypi.org/project/pydantic/"),
+        ("typing_extensions", "https://pypi.org/project/typing-extensions/"),
+    ],
+)
+def test_get_homepage(package_name, expected_homepage, package_data):
+    package_data = package_data(package_name)
+    homepage = get_homepage(package_data)
+    assert homepage == expected_homepage
