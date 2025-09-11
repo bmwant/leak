@@ -1,19 +1,15 @@
 import sys
-from contextlib import contextmanager
 
 import requests
 
 from leak import config, console, logger, ui
+from leak.utils import dummy_context, handle_requests_errors
 
 
-@contextmanager
-def dummy_context(*args, **kwargs):
-    yield
-
-
+@handle_requests_errors
 def get_package_data(package_name: str) -> dict:
     url = f"https://pypi.org/pypi/{package_name}/json"
-    resp = requests.get(url)
+    resp = requests.get(url, timeout=config.REQUESTS_TIMEOUT)
     if resp.status_code != 200:
         raise ValueError("No such package")
 
@@ -21,6 +17,7 @@ def get_package_data(package_name: str) -> dict:
     return data
 
 
+@handle_requests_errors
 def get_downloads_data(package_name: str) -> dict:
     if not config.API_KEY or not config.SHOW_DOWNLOADS:
         logger.warning("Skipping downloads data retrieval")
@@ -30,7 +27,7 @@ def get_downloads_data(package_name: str) -> dict:
     headers = {
         "X-API-Key": config.API_KEY,
     }
-    resp = requests.get(url, headers=headers)
+    resp = requests.get(url, headers=headers, timeout=config.REQUESTS_TIMEOUT)
     if resp.status_code != 200:
         logger.error(f"Cannot get downloads data: [{resp.status_code}] {resp.text}")
         return {}

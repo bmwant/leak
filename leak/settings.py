@@ -97,6 +97,7 @@ class Settings(BaseSettings):
     PANEL_WIDTH: int = 70
     API_KEY: Optional[str] = None
     SHOW_DOWNLOADS: bool = True
+    REQUESTS_TIMEOUT: float = 5.0
 
 
 config = Settings()
