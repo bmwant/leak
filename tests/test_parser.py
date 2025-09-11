@@ -1,9 +1,6 @@
-import json
-
 import pytest
 
-from leak.parser import get_email, versions_split
-from tests.conftest import DATA_DIR
+from leak.parser import get_author, get_email, get_license, versions_split
 
 
 def test_versions_split():
@@ -31,26 +28,6 @@ def test_wrong_versions_split():
         versions_split(12345)
 
 
-@pytest.fixture
-def package_data():
-    def _get_package_data(package_name: str) -> dict:
-        with open(DATA_DIR / f"{package_name}_package_data.json") as f:
-            data = json.load(f)
-        return data["info"]
-
-    return _get_package_data
-
-
-@pytest.fixture
-def downloads_data():
-    def _get_downloads_data(package_name: str) -> dict:
-        with open(DATA_DIR / f"{package_name}_downloads_data.json") as f:
-            data = json.load(f)
-        return data
-
-    return _get_downloads_data
-
-
 @pytest.mark.parametrize(
     "package_name,expected_email",
     [
@@ -67,3 +44,31 @@ def test_get_email(package_name, expected_email, package_data):
 
 def test_get_email_not_available():
     pass
+
+
+@pytest.mark.parametrize(
+    "package_name,expected_license",
+    [
+        ("django", "BSD-3-Clause"),
+        ("pydantic", "MIT"),
+        ("typing_extensions", "PSF-2.0"),  # FIXME: not an email
+    ],
+)
+def test_get_license(package_name, expected_license, package_data):
+    package_data = package_data(package_name)
+    email = get_license(package_data)
+    assert email == expected_license
+
+
+@pytest.mark.parametrize(
+    "package_name,expected_author",
+    [
+        ("django", "Django Software Foundation"),
+        ("pydantic", "Samuel Colvin"),
+        ("typing_extensions", ""),  # FIXME: wrong
+    ],
+)
+def test_get_author(package_name, expected_author, package_data):
+    package_data = package_data(package_name)
+    author = get_author(package_data)
+    assert author == expected_author
