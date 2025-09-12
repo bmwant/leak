@@ -58,9 +58,18 @@ def decode_name(encoded_data) -> str:
     return name.decode(encoding) if isinstance(name, bytes) else name
 
 
+def maybe_with_email(author_line: str) -> str:
+    parsed = parseaddr(author_line)
+    author = author_line
+    if all(parsed):
+        author = parsed[0]
+
+    return decode_name(author)
+
+
 def get_author(info: dict) -> str:
     if "author" in info and info["author"]:
-        return info["author"]
+        return maybe_with_email(info["author"])
 
     if "author_email" in info and info["author_email"]:
         emails = info["author_email"].split(",")
@@ -68,7 +77,7 @@ def get_author(info: dict) -> str:
         return decode_name(shared[0] if shared else parseaddr(emails[0])[0])
 
     if "maintainer" in info and info["maintainer"]:
-        return info["maintainer"]
+        return maybe_with_email(info["maintainer"])
 
     if "maintainer_email" in info and info["maintainer_email"]:
         emails = info["maintainer_email"].split(",")

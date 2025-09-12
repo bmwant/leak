@@ -31,6 +31,7 @@ def test_wrong_versions_split():
 @pytest.mark.parametrize(
     "package_name,expected_email",
     [
+        ("aiohttp", "team@aiohttp.org"),
         ("django", "foundation@djangoproject.com"),
         ("pydantic", "s@muelcolvin.com"),
         ("typing_extensions", "levkivskyi@gmail.com"),
@@ -49,6 +50,7 @@ def test_get_email_not_available():
 @pytest.mark.parametrize(
     "package_name,expected_license",
     [
+        ("aiohttp", "Apache-2.0 AND MIT"),
         ("django", "BSD-3-Clause"),
         ("pydantic", "MIT"),
         ("typing_extensions", "PSF-2.0"),
@@ -63,6 +65,7 @@ def test_get_license(package_name, expected_license, package_data):
 @pytest.mark.parametrize(
     "package_name,expected_author",
     [
+        ("aiohttp", "aiohttp team"),
         ("django", "Django Software Foundation"),
         ("pydantic", "Samuel Colvin"),
         (
