@@ -65,9 +65,6 @@ def show_package_versions(releases, downloads: dict, showall: bool = False):
 
     for release_num, release_data in releases.items():
         downloads_count = parser.get_max_downloads_for_release(release_data)
-        if downloads_count:
-            print(downloads_count)
-
         upload_date = parser.get_latest_time_for_release(release_data)
         if upload_date > most_recent_date:
             most_recent_date = upload_date
