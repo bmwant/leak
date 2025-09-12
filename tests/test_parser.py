@@ -1,6 +1,6 @@
 import pytest
 
-from leak.parser import versions_split
+from leak.parser import get_author, get_email, get_homepage, get_license, versions_split
 
 
 def test_versions_split():
@@ -26,3 +26,70 @@ def test_wrong_versions_split():
     # test not string provided
     with pytest.raises(AttributeError):
         versions_split(12345)
+
+
+@pytest.mark.parametrize(
+    "package_name,expected_email",
+    [
+        ("aiohttp", "team@aiohttp.org"),
+        ("django", "foundation@djangoproject.com"),
+        ("pydantic", "s@muelcolvin.com"),
+        ("typing_extensions", "levkivskyi@gmail.com"),
+    ],
+)
+def test_get_email(package_name, expected_email, package_data):
+    package_data = package_data(package_name)
+    email = get_email(package_data)
+    assert email == expected_email
+
+
+def test_get_email_not_available():
+    pass
+
+
+@pytest.mark.parametrize(
+    "package_name,expected_license",
+    [
+        ("aiohttp", "Apache-2.0 AND MIT"),
+        ("django", "BSD-3-Clause"),
+        ("pydantic", "MIT"),
+        ("typing_extensions", "PSF-2.0"),
+    ],
+)
+def test_get_license(package_name, expected_license, package_data):
+    package_data = package_data(package_name)
+    email = get_license(package_data)
+    assert email == expected_license
+
+
+@pytest.mark.parametrize(
+    "package_name,expected_author",
+    [
+        ("aiohttp", "aiohttp team"),
+        ("django", "Django Software Foundation"),
+        ("pydantic", "Samuel Colvin"),
+        (
+            "typing_extensions",
+            "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee",
+        ),
+    ],
+)
+def test_get_author(package_name, expected_author, package_data):
+    package_data = package_data(package_name)
+    author = get_author(package_data)
+    assert author == expected_author
+
+
+# TODO: Homepage to take priority from "project_url" field
+@pytest.mark.parametrize(
+    "package_name,expected_homepage",
+    [
+        ("django", "https://pypi.org/project/Django/"),
+        ("pydantic", "https://pypi.org/project/pydantic/"),
+        ("typing_extensions", "https://pypi.org/project/typing-extensions/"),
+    ],
+)
+def test_get_homepage(package_name, expected_homepage, package_data):
+    package_data = package_data(package_name)
+    homepage = get_homepage(package_data)
+    assert homepage == expected_homepage
