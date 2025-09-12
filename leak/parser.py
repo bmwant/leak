@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from email.header import decode_header
 from email.utils import parseaddr
@@ -63,29 +64,39 @@ def get_author(info: dict) -> str:
 
     if "author_email" in info and info["author_email"]:
         emails = info["author_email"].split(",")
-        return decode_name(parseaddr(emails[0])[0])
+        shared = shared_email(info["author_email"])
+        return decode_name(shared[0] if shared else parseaddr(emails[0])[0])
 
     if "maintainer" in info and info["maintainer"]:
         return info["maintainer"]
 
     if "maintainer_email" in info and info["maintainer_email"]:
         emails = info["maintainer_email"].split(",")
-        return decode_name(parseaddr(emails[0])[0])
+        shared = shared_email(info["maintainer_email"])
+        return decode_name(shared[0] if shared else parseaddr(emails[0])[0])
     return "n/a"
 
 
-def get_email(info) -> str:
+def shared_email(author_line: str) -> Optional[tuple[str, str]]:
+    shared_match = re.match(r'^"([^"]+)"\s*<([^>]+)>$', author_line.strip())
+    if shared_match:
+        return shared_match.groups()
+
+
+def get_email(info: dict) -> str:
     if "author_email" in info and info["author_email"]:
         emails = info["author_email"].split(",")
-        return parseaddr(emails[0])[1]
+        shared = shared_email(info["author_email"])
+        return shared[1] if shared else parseaddr(emails[0])[1]
 
     if "maintainer_email" in info and info["maintainer_email"]:
         emails = info["maintainer_email"].split(",")
-        return parseaddr(emails[0])[1]
+        shared = shared_email(info["maintainer_email"])
+        return shared[1] if shared else parseaddr(emails[0])[1]
     return "n/a"
 
 
-def get_homepage(info) -> str:
+def get_homepage(info: dict) -> str:
     if "home_page" in info and info["home_page"]:
         return info["home_page"]
     if "project_url" in info and info["project_url"]:
@@ -94,7 +105,7 @@ def get_homepage(info) -> str:
     return homepage
 
 
-def get_license(info) -> str:
+def get_license(info: dict) -> str:
     if "license" in info and info["license"]:
         # Return the first non-empty line of the license
         # as license field can contain full license text

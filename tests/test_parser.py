@@ -33,7 +33,7 @@ def test_wrong_versions_split():
     [
         ("django", "foundation@djangoproject.com"),
         ("pydantic", "s@muelcolvin.com"),
-        ("typing_extensions", "Guido van Rossum"),  # FIXME: not an email
+        ("typing_extensions", "levkivskyi@gmail.com"),
     ],
 )
 def test_get_email(package_name, expected_email, package_data):
@@ -51,7 +51,7 @@ def test_get_email_not_available():
     [
         ("django", "BSD-3-Clause"),
         ("pydantic", "MIT"),
-        ("typing_extensions", "PSF-2.0"),  # FIXME: not an email
+        ("typing_extensions", "PSF-2.0"),
     ],
 )
 def test_get_license(package_name, expected_license, package_data):
@@ -65,7 +65,10 @@ def test_get_license(package_name, expected_license, package_data):
     [
         ("django", "Django Software Foundation"),
         ("pydantic", "Samuel Colvin"),
-        ("typing_extensions", ""),  # FIXME: wrong
+        (
+            "typing_extensions",
+            "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee",
+        ),
     ],
 )
 def test_get_author(package_name, expected_author, package_data):
